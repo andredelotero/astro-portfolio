@@ -22,7 +22,7 @@ import { Icon } from "astro-icon";
   <div>
     <h1
       class="text-5xl mb-2 lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
-      Hello, I am André,
+      Hello, I am Andr&eacute;,
     </h1>
     <h2
       class="text-3xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
@@ -35,23 +35,34 @@ import { Icon } from "astro-icon";
     </p>
     <div class="mt-6 flex flex-col sm:flex-row gap-3">
       <Link
+        size="md"
         href="https://ar.linkedin.com/in/andredelotero"
+        style="outline"
         target="_blank"
-        class="flex gap-1 items-center justify-center"
+        class="flex gap-1 items-center justify-center border"
         rel="noopener">
-        <Icon class="text-white w-5 h-5" name="mdi:linkedin" />
-
-        My Linkedin profile
+        <Icon class="text-black w-5 h-5" name="mdi:linkedin" />
+        Linkedin
       </Link>
       <Link
-        size="lg"
+        size="md"
         style="outline"
         rel="noopener"
         href="https://github.com/andredelotero"
-        class="flex gap-1 items-center justify-center"
+        class="flex gap-1 items-center justify-center border"
         target="_blank">
         <Icon class="text-black w-4 h-4" name="mdi:github" />
-        My GitHub profile
+        GitHub
+      </Link>
+      <Link
+        size="md"
+        style="outline"
+        rel="noopener"
+        href="https://twitter.com/AndreDelOtero"
+        class="flex gap-1 items-center justify-center border"
+        target="_blank">
+        <Icon class="text-black w-4 h-4" name="mdi:twitter" />
+        Twitter
       </Link>
     </div>
   </div>
