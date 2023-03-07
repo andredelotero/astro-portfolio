@@ -1,36 +1,17 @@
 ---
 import Container from "@components/container.astro";
-import { Astronav } from "astro-navbar";
-
-const menuitems = [
-  {
-    title: "Home",
-    path: "#home",
-  },
-  {
-    title: "About",
-    path: "#about",
-  },
-  {
-    title: "Contact",
-    path: "#contact",
-  },
-];
 ---
 
 <Container>
   <header class="flex flex-col lg:flex-row justify-between items-center my-5">
-    <Astronav>
-      <div class="flex w-full lg:w-auto items-center justify-between">
-        <a href="/" class="text-lg">
-          <span class="font-bold text-slate-800">Andre</span>
-          <span class="font-bold text-slate-800 hidden sm:inline">
-            Gama del Otero</span
-          >
-
-          <span class="text-slate-500">Frontend developer</span>
-        </a>
-      </div>
-    </Astronav>
+    <div class="flex w-full lg:w-auto items-center justify-between">
+      <a href="/" class="text-lg">
+        <span class="font-bold text-slate-800">Andre</span>
+        <span class="font-bold text-slate-800 hidden sm:inline">
+          Gama del Otero</span
+        >
+        <span class="text-slate-500">Frontend developer</span>
+      </a>
+    </div>
   </header>
 </Container>
