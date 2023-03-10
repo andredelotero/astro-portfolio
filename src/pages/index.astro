@@ -6,34 +6,39 @@ import Hero from "@components/hero.astro";
 import { SEO } from "astro-seo";
 import Navbar from "@components/navbar/navbar.astro";
 import "@fontsource/inter/variable.css";
-import ToggleTheme from "@components/toggleTheme.astro";
 
-const cookie = Astro.request.headers.get("cookie");
-// if truthy, this theme will be set as data-theme on first render
+const cookie = Astro.request.headers.get("theme");
 const theme = cookie?.split("theme=")[1].split(";")[0];
+
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme={theme} class={theme}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name='color-scheme' content='dark light' />
     <link rel="icon" type="image/svg+xml" href="/favicon.png" />
 
-		{!theme && (
+
+		{!theme ? (
 			<script is:inline>
-				if (!document.documentElement.dataset.theme) {
+				if (!document.documentElement.getAttribute('dark')) {
 					const theme =
 						document.cookie?.split('theme=')[1]?.split(';')[0] ??
 						(window.matchMedia('(prefers-color-scheme: dark)')?.matches
 							? 'dark'
 							: 'light');
 					document.cookie = `theme=${theme}`;
-					document.documentElement.dataset.theme = theme;
+					document.documentElement.classList.add(theme);   
 				}
-			</script>
-		)}
+       
+			</script>)
+      :
+      <script is:inline>
+        document.documentElement.className.add(theme)
+      </script>
+		}
 
     <SEO
       title="Andre Gama del Otero - Frontend developer"
@@ -47,17 +52,25 @@ const theme = cookie?.split("theme=")[1].split(";")[0];
   </head>
   <body class="dark:bg-slate-900">
     <Navbar />
-		<div class='theme-toggle-wrapper'>
-			<ToggleTheme id='theme-toggle' />
-			<p id='theme-instructions'>Try toggling the theme and refreshing</p>
-		</div>
     <script is:inline>
-			// when theme toggle is clicked, we update the cookie and the data-theme attribute
 			document.querySelector('#theme-toggle')?.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('class')
 				const nextTheme =
-					document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-				document.documentElement.classList.add = nextTheme;
+					document.documentElement.getAttribute('class') === 'dark' ? 'light' : 'dark';
+        
+				document.documentElement.classList.remove(currentTheme) 
+				document.documentElement.classList.add(nextTheme) 
+				 
 				document.cookie = `theme=${nextTheme}`;
+        nextTheme === 'dark' ?(
+          document.getElementById('themeToggleLightIcon').classList.remove('hidden'),
+          document.getElementById('themeToggleDarkIcon').classList.add('hidden')
+        )
+        :
+        (
+          document.getElementById('themeToggleLightIcon').classList.add('hidden'),
+          document.getElementById('themeToggleDarkIcon').classList.remove('hidden')
+        )        
 			});
 		</script>
     <Container>
