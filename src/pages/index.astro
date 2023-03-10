@@ -61,16 +61,7 @@ const theme = cookie?.split("theme=")[1].split(";")[0];
 				document.documentElement.classList.remove(currentTheme) 
 				document.documentElement.classList.add(nextTheme) 
 				 
-				document.cookie = `theme=${nextTheme}`;
-        nextTheme === 'dark' ?(
-          document.getElementById('themeToggleLightIcon').classList.remove('hidden'),
-          document.getElementById('themeToggleDarkIcon').classList.add('hidden')
-        )
-        :
-        (
-          document.getElementById('themeToggleLightIcon').classList.add('hidden'),
-          document.getElementById('themeToggleDarkIcon').classList.remove('hidden')
-        )        
+				document.cookie = `theme=${nextTheme}`;     
 			});
 		</script>
     <Container>
