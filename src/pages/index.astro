@@ -5,7 +5,6 @@ import Features from "@components/features.astro";
 import Hero from "@components/hero.astro";
 import { SEO } from "astro-seo";
 import Navbar from "@components/navbar/navbar.astro";
-import "@fontsource/inter/variable.css";
 
 const cookie = Astro.request.headers.get("theme");
 const theme = cookie?.split("theme=")[1].split(";")[0];
