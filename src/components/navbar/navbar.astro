@@ -4,16 +4,22 @@ import ToggleTheme from "@components/toggleTheme.astro";
 ---
 
 <Container>
-  <header
-    class="flex flex-col lg:flex-row justify-between items-center my-5 dark:bg-slate-800">
+  <header class="flex flex-col lg:flex-row justify-between items-center my-5">
     <div class="flex w-full items-center justify-between">
-      <a href="/" class="text-lg flex flex-1">
-        <span class="font-bold text-slate-800">Andr&eacute;</span>
-        <span class="font-bold text-slate-800 hidden sm:inline">
-          Gama del Otero</span
-        >
-        <span class="text-slate-500">Front-End developer</span>
-      </a>
+      <span class="flex flex-1">
+        <a href="/" class="text-lg flex w-auto">
+          <span class="font-bold text-slate-900 dark:text-slate-100"
+            >Andr&eacute;&nbsp;</span
+          >
+          <span
+            class="font-bold text-slate-900 dark:text-slate-100 hidden sm:inline">
+            Gama del Otero</span
+          >
+          <span class="text-slate-500 dark:text-slate-300"
+            >&nbsp;Front-End developer</span
+          >
+        </a>
+      </span>
       <ToggleTheme />
     </div>
   </header>
