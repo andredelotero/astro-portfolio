@@ -3,12 +3,75 @@ export const prerender = true;
 import Container from "@components/container.astro";
 import Features from "@components/features.astro";
 import Hero from "@components/hero.astro";
-import Layout from "@layouts/Layout.astro";
+import { SEO } from "astro-seo";
+import Navbar from "@components/navbar/navbar.astro";
+import "@fontsource/inter/variable.css";
+import ToggleTheme from "@components/toggleTheme.astro";
+
+const cookie = Astro.request.headers.get("cookie");
+// if truthy, this theme will be set as data-theme on first render
+const theme = cookie?.split("theme=")[1].split(";")[0];
 ---
 
-<Layout title="">
-  <Container>
-    <Hero />
-    <Features />
-  </Container>
-</Layout>
+<!DOCTYPE html>
+<html lang="en" data-theme={theme} class={theme}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name='color-scheme' content='dark light' />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+
+		{!theme && (
+			<script is:inline>
+				if (!document.documentElement.dataset.theme) {
+					const theme =
+						document.cookie?.split('theme=')[1]?.split(';')[0] ??
+						(window.matchMedia('(prefers-color-scheme: dark)')?.matches
+							? 'dark'
+							: 'light');
+					document.cookie = `theme=${theme}`;
+					document.documentElement.dataset.theme = theme;
+				}
+			</script>
+		)}
+
+    <SEO
+      title="Andre Gama del Otero - Frontend developer"
+      description="Frontend developer."
+      canonical="http:/www.andredelotero.dev"
+      twitter={{
+        creator: "@andredelotero",
+        site: "@andredelotero",
+      }}
+    />
+  </head>
+  <body class="dark:bg-slate-900">
+    <Navbar />
+		<div class='theme-toggle-wrapper'>
+			<ToggleTheme id='theme-toggle' />
+			<p id='theme-instructions'>Try toggling the theme and refreshing</p>
+		</div>
+    <script is:inline>
+			// when theme toggle is clicked, we update the cookie and the data-theme attribute
+			document.querySelector('#theme-toggle')?.addEventListener('click', () => {
+				const nextTheme =
+					document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+				document.documentElement.classList.add = nextTheme;
+				document.cookie = `theme=${nextTheme}`;
+			});
+		</script>
+    <Container>
+      <Hero />
+      <Features />
+    </Container>
+    <style is:global>
+      body {
+        background-color: #fafafa;
+        color: #0a0a0a;
+      }
+      img {
+        content-visibility: auto;
+      }
+    </style>
+  </body>
+</html>
