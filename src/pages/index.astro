@@ -1,13 +1,81 @@
 ---
+export const prerender = true;
 import Container from "@components/container.astro";
 import Features from "@components/features.astro";
 import Hero from "@components/hero.astro";
-import Layout from "@layouts/Layout.astro";
+import { SEO } from "astro-seo";
+import Navbar from "@components/navbar/navbar.astro";
+import "@fontsource/inter/variable.css";
+
+const cookie = Astro.request.headers.get("theme");
+const theme = cookie?.split("theme=")[1].split(";")[0];
+
 ---
 
-<Layout title="">
-  <Container>
-    <Hero />
-    <Features />
-  </Container>
-</Layout>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name='color-scheme' content='dark light' />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+
+
+		{!theme ? (
+			<script is:inline>
+				if (!document.documentElement.getAttribute('dark')) {
+					const theme =
+						document.cookie?.split('theme=')[1]?.split(';')[0] ??
+						(window.matchMedia('(prefers-color-scheme: dark)')?.matches
+							? 'dark'
+							: 'light');
+					document.cookie = `theme=${theme}`;
+					document.documentElement.classList.add(theme);   
+				}
+       
+			</script>)
+      :
+      <script is:inline>
+        document.documentElement.className.add(theme)
+      </script>
+		}
+
+    <SEO
+      title="Andre Gama del Otero - Frontend developer"
+      description="Frontend developer."
+      canonical="http:/www.andredelotero.dev"
+      twitter={{
+        creator: "@andredelotero",
+        site: "@andredelotero",
+      }}
+    />
+  </head>
+  <body class="dark:bg-slate-900">
+    <Navbar />
+    <script is:inline>
+			document.querySelector('#theme-toggle')?.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('class')
+				const nextTheme =
+					document.documentElement.getAttribute('class') === 'dark' ? 'light' : 'dark';
+        
+				document.documentElement.classList.remove(currentTheme) 
+				document.documentElement.classList.add(nextTheme) 
+				 
+				document.cookie = `theme=${nextTheme}`;     
+			});
+		</script>
+    <Container>
+      <Hero />
+      <Features />
+    </Container>
+    <style is:global>
+      body {
+        background-color: #fafafa;
+        color: #0a0a0a;
+      }
+      img {
+        content-visibility: auto;
+      }
+    </style>
+  </body>
+</html>
