@@ -6,7 +6,6 @@ import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   site: "https://andredelotero.dev/",
-  output: 'server',
   integrations: [
     tailwind(),
     image({
