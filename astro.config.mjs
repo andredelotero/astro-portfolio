@@ -5,7 +5,8 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://www.andredelotero.dev/",
+  site: "https://andredelotero.dev/",
+  output: "server",
   integrations: [
     tailwind(),
     image({
