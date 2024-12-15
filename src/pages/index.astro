@@ -9,8 +9,6 @@ import Navbar from "@components/navbar/navbar.astro";
 const cookie = Astro.request.headers.get("theme");
 const theme = cookie?.split("theme=")[1].split(";")[0];
 
-import Analytics from '@vercel/analytics/astro';
-
 ---
 
 <!DOCTYPE html>
@@ -50,7 +48,6 @@ import Analytics from '@vercel/analytics/astro';
         site: "@andredelotero",
       }}
     />
-    <Analytics />
   </head>
   <body class="dark:bg-slate-900">
     <Navbar />
